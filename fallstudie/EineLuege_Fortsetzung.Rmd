@@ -20,6 +20,15 @@ library(DT)
 library(googlesheets4)
 gs4_deauth()
 ```
+```{css, echo=FALSE}
+.Antwort {
+  background-color: rgb(135, 206, 250, 0.2);
+  min-height: 1em;
+  padding: 5px 5px 2px 10px;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+```
 
 # Eine Lüge. Erkannt?
 
@@ -51,9 +60,13 @@ Betrachten wir die Daten:
 datatable(EineLuege)
 ```
 
+
 #### Frage
 
 - Wie viele Spalten (Variablen) liegen vor?
+
+::: {.Antwort}
+:::
 
 ***
 
@@ -69,7 +82,13 @@ EineLuege <- EineLuege %>%
 
 - Ergibt ein Mittelwert der Variable `Sicherheit` Sinn?
 
+::: {.Antwort}
+:::
+
 - Ergibt ein Mittelwert der Variable `Erkannt` Sinn?
+
+::: {.Antwort}
+:::
 
 ## Sicherheit
 
@@ -83,9 +102,19 @@ gf_bar( ~ Sicherheit, data = EineLuege)
 
 - Wie würden Sie das Ergebnis beschreiben?
 
+::: {.Antwort}
+:::
+
 - Kann sich das Ergebnis mit mehr Daten ändern?
 
+::: {.Antwort}
+:::
+
 - Angenommen die Teilnehmer:innen hätten sich sehr gut gekannt. Würde sich das Ergebnis ändern?
+
+::: {.Antwort}
+:::
+
 
 ## Verzerrung
 
@@ -95,9 +124,13 @@ Insgesamt - also ohne Betrachtung der Sicherheit - liegen `r prop( ~ Erkannt, da
 prop( ~ Erkannt, data = EineLuege)
 ```
 
+
 #### Frage
 
 - Angenommen wir hätten nur Daten von Teilnehmenden, die sich sehr sicher waren (z.B. `Sicherheit` von 8 oder höher). Kann sich dann das Ergebnis ändern?
+
+::: {.Antwort}
+:::
 
 ***
 
@@ -112,11 +145,16 @@ EineLuege_sicher <- EineLuege %>%
 
 - Wird die neue Datentabelle `EineLuege_sicher` mehr oder weniger Beobachtungen haben als die Datentabelle `EineLuege`? 
 
+::: {.Antwort}
+:::
+
 - Ändern Sie den folgenden Code entsprechend, um den Anteil der Richtigen unter denjenigen, die eine `Sicherheit` von 8 oder höher haben, zu berechnen. Wie hoch ist der Anteil?
 
+::: {.Antwort}
 ```{r Uebung}
 prop( ~ Erkannt, data = EineLuege)
 ```
+:::
 
 
 ## Zusammenhang Sicherheit und Erkannt
@@ -136,4 +174,10 @@ glm(Erkannt ~ Sicherheit, data = EineLuege, family = binomial) %>%
 
 - Wie würden Sie den Zusammenhang beschreiben? 
 
+::: {.Antwort}
+:::
+
 - Wie sähe die Linie aus, wenn es keinen Zusammenhang geben würde?
+
+::: {.Antwort}
+:::

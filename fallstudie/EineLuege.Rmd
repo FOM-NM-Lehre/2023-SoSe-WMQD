@@ -13,13 +13,21 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Hilfsfunktion. n ist die Anzahl der Versuche
-raten <- function(n = 1) sample(c("Ja", "Nein", "Nein"), size = n, replace = TRUE)
+raten <- function(anzahl = 1) sample(c("Ja", "Nein", "Nein"), size = Anzahl, replace = TRUE)
 # Paket mosaic aktivieren
 library(mosaic)
 # Paket DT aktivieren
 library(DT)
 ```
-
+```{css, echo=FALSE}
+.Antwort {
+  background-color: rgb(135, 206, 250, 0.2);
+  min-height: 1em;
+  padding: 5px 5px 2px 10px;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+```
 # Lüge erkannt?
 
 Wie gut können wir Lügen erkennen?
@@ -37,7 +45,7 @@ Geben Sie die Daten unter [https://forms.gle/gciXvk4KMA1DD3Rw5](https://forms.gl
 
 ## Daten
 
-In `R` erfolgt eine *Zuweisung* über `<-`. Ein Kommentar wird über `#` eingeleitet. Geben wir das Testergebnis unseres Kurses ein.^[*Hinweis*: In der Vorlage steht `x <- 20` und `n <- 30`. Diese Zahlen müssen angepasst werden. Die Zeile `x <- 20` bedeutet: Der Variable `x` wird der Wert `30` zugewiesen (`<-`).]
+In `R` erfolgt eine *Zuweisung* über `<-`. Ein Kommentar wird über `#` eingeleitet. Geben wir das Testergebnis unseres Kurses ein.^[*Hinweis*: In der Vorlage steht `x <- 20` und `n <- 30`. Diese Zahlen müssen angepasst werden. Die Zeile `x <- 20` bedeutet: Der Variable `x` wird der Wert `20` zugewiesen (`<-`).]
 
 ```{r ergebnis}
 # Anzahl Richtige:
@@ -49,6 +57,9 @@ n <- 30
 #### Frage
 
 - Kann `x` größer als `n` sein?
+
+::: {.Antwort}
+:::
 
 ***
 
@@ -72,6 +83,9 @@ p
 
 - Wie interpretieren Sie das Ergebnis? Was sagt unser Ergebnis über die Fähigkeit Lügen zu erkennen aus?
 
+::: {.Antwort}
+:::
+
 ## Hypothese
 
 Jede Person hat drei Dinge über sich ausgesagt, eins davon war eine Lüge. 
@@ -79,6 +93,9 @@ Jede Person hat drei Dinge über sich ausgesagt, eins davon war eine Lüge.
 #### Fragen
 
 - Angenommen wir können Lügen *nicht* erkennen. Wie hoch wäre dann die Wahrscheinlichkeit richtig zu raten?
+
+::: {.Antwort}
+:::
 
 - Geben Sie unten den `R` Code ein, um auszurechnen, wie viel Richtige Sie erwarten würden, wenn die **Hypothese** *wir können Lügen nicht erkennen* stimmen würde. Zur Erinnerung, die Anzahl der Teilnehmenden wurde in `R` als `n` hinterlegt.
 
@@ -96,7 +113,7 @@ Raten (Funktion (`raten()`)) wir `n` mal:
 
 ```{r raten}
 # mein_raten soll das Ergebnis eines n-fachen Ratens sein
-mein_raten <- raten(n = n)
+mein_raten <- raten(anzahl = n)
 # mein_raten anzeigen
 mein_raten
 ```
@@ -109,11 +126,11 @@ mein_raten
 
 ***
 
-Über die Befehle `sum()` und `prop()` können wir ermitteln, wie oft wir beim Raten `Ja` erhalten haben, also zufällig richtig lagen. Über `mein_raten == "Ja"`^[`==` ist das logische gleich, `!=` ist ungleich.] wird für jedes Element des Vektors `mein_raten` überprüft, ob es `"Ja"` ist. Viele `R` Funktionen, wie z.B. `sum()` und `prop()` dienen der **Modellierung** `y ~ x` und erwarten dies als Funktionsargument. In unserem Fall haben wir (noch) kein `y`, daher können wir dies weglassen.
+Über die Befehle `count()` und `prop()` können wir ermitteln, wie oft wir beim Raten `Ja` erhalten haben, also zufällig richtig lagen. Über `mein_raten == "Ja"`^[`==` ist das logische gleich, `!=` ist ungleich.] wird für jedes Element des Vektors `mein_raten` überprüft, ob es `"Ja"` ist. Viele `R` Funktionen, wie z.B. `count()` und `prop()` dienen der **Modellierung** `y ~ x` und erwarten dies als Funktionsargument. In unserem Fall haben wir (noch) kein `y`, daher können wir dies weglassen.
 
 ```{r raten_auswertung}
 # Anzahl Richtig: Summe der (zufällig) richtigen Rateversuche 
-sum( ~ mein_raten == "Ja")
+count( ~ mein_raten == "Ja")
 # Anteil Richtig:
 prop( ~ mein_raten == "Ja")
 ```
@@ -127,7 +144,7 @@ set.seed(1896)
 # Nullvtlg soll sein: 
 # Wiederhole 1000x: 
 # Rate n-Mal und zähle die Richtigen
-Nullvtlg <- do(1000)* sum( ~ raten(n = n) == "Ja")
+Nullvtlg <- do(1000) * count( ~ raten(n = n) == "Ja")
 ```
 
 `Nullvtlg` ist jetzt eine Datentabelle, die 1000 Zeilen und eine Spalte hat.
@@ -137,12 +154,12 @@ Nullvtlg <- do(1000)* sum( ~ raten(n = n) == "Ja")
 datatable(Nullvtlg)
 ```
 
-In jeder Zeile steht also das Ergebnis einer Simulation. In der Spalte (Variable `sum`) steht dann jeweils, wie oft in den `r n`-Rateversuchen der jeweiligen Simulation das Ergebnis richtig war. 
+In jeder Zeile steht also das Ergebnis einer Simulation. In der Spalte (Variable `n_TRUE`) steht dann jeweils, wie oft in den `r n`-Rateversuchen der jeweiligen Simulation das Ergebnis richtig war. 
 
-Über ein Säulendiagramm (`gf_bar()`) können wir uns anschauen wie viele Richtige wir in unseren 1000 Simulationen jeweils hatten. Damit `R` die Variable `sum` (nicht zu Verwechseln mit dem Befehl `sum()`) auch richtig findet, geben wir die Datentabelle `Nullvtlg` als zuätzliches Funktionsargument an.
+Über ein Säulendiagramm (`gf_bar()`) können wir uns anschauen wie viele Richtige wir in unseren 1000 Simulationen jeweils hatten. Damit `R` die Variable `n_TRUE` auch richtig findet, geben wir die Datentabelle `Nullvtlg` als zusätzliches Funktionsargument an.
 
 ```{r Säulendiagramm}
-gf_bar( ~ sum, data = Nullvtlg)
+gf_bar( ~ n_TRUE, data = Nullvtlg)
 ```
 
 ### Frage
@@ -154,7 +171,7 @@ gf_bar( ~ sum, data = Nullvtlg)
 Zum Schluss vergleichen wir unser Ergebnis mit den Simulationen, indem wir die Abbildung um eine vertikale Linie (`gf_vline()`) an der Stelle `x` ergänzen (`%>%`):
 
 ```{r Hypothesenprüfung}
-gf_bar( ~ sum, data = Nullvtlg) %>%
+gf_bar( ~ n_TRUE, data = Nullvtlg) %>%
   gf_vline(xintercept = ~ x)
 ```
 
