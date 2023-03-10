@@ -122,7 +122,13 @@ mein_raten
 
 - Wie lautet das Funktionsargument der Funktion `raten()`?
 
+::: {.Antwort}
+:::
+
 - Haben alle Studierenden das gleiche Ergebnis?
+
+::: {.Antwort}
+:::
 
 ***
 
@@ -166,6 +172,9 @@ gf_bar( ~ n_TRUE, data = Nullvtlg)
 
 - Welche Anzahl Richtige kommt am Häufigsten vor?
 
+::: {.Antwort}
+:::
+
 ***
 
 Zum Schluss vergleichen wir unser Ergebnis mit den Simulationen, indem wir die Abbildung um eine vertikale Linie (`gf_vline()`) an der Stelle `x` ergänzen (`%>%`):
@@ -179,3 +188,5 @@ gf_bar( ~ n_TRUE, data = Nullvtlg) %>%
 
 - Ist unser Ergebnis, mit $x = `r x`$ Richtigen bei $n = `r n`$ versuchen zum hypothetischen Modell $\pi=1/3$ kompatibel?
 
+::: {.Antwort}
+:::
