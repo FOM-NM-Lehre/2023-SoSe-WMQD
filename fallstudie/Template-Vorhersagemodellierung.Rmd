@@ -1,0 +1,86 @@
+---
+title: "Modellierung Gebrauchtwagenpreis"
+author: "Gabi Musterstudentin, Horst Vozeigestudent"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+---
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Pakete laden
+library(mosaic)
+library(readxl)
+library(here) 
+```
+
+<!-- Sollten Umlaute falsch angezeigt werden: "File -> Reopen with Encoding -> UTF8" -->
+
+# Einleitung
+
+Die Einleitung in die Aufgabenstellung usw. Wird bei Gruppenarbeiten zusammen geschrieben.
+
+Ungefährer Umfang Text: 0,5--1 Seite. 
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+# Datenerhebung
+
+Gehen Sie hier kurz darauf ein, wann, wo und wie Sie die Daten erhoben haben.
+
+Ungefährer Umfang Text: 1--3 Sätze. Wird bei Gruppenarbeiten zusammen geschrieben.
+
+Daten einlesen:
+
+```{r}
+Autos <- read_excel(here("data","Autos.xlsx"))
+```
+
+Kontrolle:
+
+```{r}
+str(Autos)
+```
+
+
+# Explorative Datenanalyse^[Gabi Musterstudentin]
+
+Führen Sie hier eine Explorative Datenanalyse der von Ihnen verwendeten Variablen durch. Auch eine evtl. Datenvorverarbeitung erfolgt in diesem Abschnitt.
+
+Bei Einzelarbeiten sollte der reine Text (ohne Code, Abbildungen etc.) einen Umfang von ca. 0,5--1 Seiten haben, bei Gruppenarbeiten einen von ca. 1--2 Seiten.
+
+```{r}
+gf_histogram( ~ Preis, data = Autos)
+```
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+# Modellierung^[Fließiges Lieschen]
+
+Modellieren Sie in diesem Abschnitt den Preis und interpretieren Sie Ihr Ergebnis. Bei Einzelarbeiten sollte der reine Text (ohne Code, Abbildungen etc.) einen Umfang von ca. 1 Seite haben, bei Gruppenarbeiten einen von ca. 2 Seiten.
+
+Modell schätzen:
+
+```{r}
+Modell_Preis <- lm(Preis ~ 1, data = Autos)
+summary(Modell_Preis)
+```
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+# Zusammenfassung
+
+Fassen Sie gemeinsam kurz die zentralen Ergebnisse zusammen (0,5--1 Seite). Gehen Sie auch auf die Grenzen Ihrer Analyse ein.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+
+
+
+***
+
+# Quellen und Hilfsmittel
+
+Führen Sie hier die verwendeten Hilfsmittel sowie die verwendete Literatur auf.
+
